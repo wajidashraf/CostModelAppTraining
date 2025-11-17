@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import './App.css'
-import type { ToastType } from './components/Toast';
+// import type { ToastType } from './components/Toast';
 import { ModelList } from './pages/ModelList';
 import { models } from './Utilities/mockdata'; 
 import { ModelDetail } from './pages/ModelDetail';
 
 type PageType = 'list' | 'detail';
 
-interface ToastItem {
-  id: string;
-  message: string;
-  type: ToastType;
-}
+// interface ToastItem {
+//   id: string;
+//   message: string;
+//   type: ToastType;
+// }
 
 function App() {
   // Routing state - which page to show
@@ -21,7 +21,7 @@ function App() {
   const [selectedModelId, setSelectedModelId] = useState<string | null>(null);
 
   // Toast notifications state
-  const [toasts, setToasts] = useState<ToastItem[]>([]) ;
+  // const [toasts, setToasts] = useState<ToastItem[]>([]) ;
 
   // Event handler: Navigate to model detail page
   const handleSelectModel = (modelId: string) => {
@@ -66,6 +66,7 @@ return (
     <footer className="app-footer">
       <div className="composition-info type-info">
         <h3>Frontend-Backend Integration</h3>
+        
         <p>
           <strong>Current State:</strong>
 

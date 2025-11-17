@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "dev": "npm run dev:frontend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "tsx backend/server.ts",
+    "dev:all": "npm run dev:backend & npm run dev:frontend",
+    "build": "cd frontend && npm run build",
+    "build:backend": "tsc -p backend/tsconfig.json",
+    "type-check": "tsc -p backend/tsconfig.json --noEmit"
+  }
+ 
+}
