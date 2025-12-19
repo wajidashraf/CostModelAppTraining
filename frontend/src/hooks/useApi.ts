@@ -1,11 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import type { CostModel, MeasuredWork } from '../types/models';
 import * as api from '../services/client';
 
-export function useFetchModels() {
+export function useFetchModels(refreshTrigger?: number) {
   const [models, setModels] = useState<CostModel[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const refetch = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await api.getModels();
+      setModels(data);
+      setError(null);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -20,16 +33,18 @@ export function useFetchModels() {
       } catch (err) {
         if (active) setError((err as Error).message);
       } finally {
-        if (active) setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
       }
     };
     load();
     return () => {
       active = false;
     };
-  }, []);
+  }, [refreshTrigger]);
 
-  return { models, loading, error };
+  return { models, loading, error, refetch };
 }
 
 export function useFetchModelById(modelId: string) {

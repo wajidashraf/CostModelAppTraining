@@ -20,6 +20,9 @@ function App() {
   // Selected model ID for detail page
   const [selectedModelId, setSelectedModelId] = useState<string | null>(null);
 
+  // Trigger to refresh models list when returning from detail
+  const [refreshCounter, setRefreshCounter] = useState(0);
+
   // Toast notifications state
   // const [toasts, setToasts] = useState<ToastItem[]>([]) ;
 
@@ -30,15 +33,17 @@ function App() {
     setCurrentPage('detail');
   };
 
-  // Event handler: Navigate back to model list
+  // Event handler: Navigate back to model list and refresh data
   const handleBackToList = () => {
     console.log('App: Navigating back to list');
     setCurrentPage('list');
     setSelectedModelId(null);
+    // Trigger refresh of models list to get updated costs
+    setRefreshCounter(prev => prev + 1);
   };
 
-  // Fetch models from backend API
-  const { models, loading, error } = useFetchModels();
+  // Fetch models from backend API with refresh trigger
+  const { models, loading, error } = useFetchModels(refreshCounter);
 
   return (
     <div className="app">
