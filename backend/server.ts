@@ -2,9 +2,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import apiRoutes from './routes/api';
+import { seedData } from './data/store';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Initialize database with seed data
+seedData();
 
 // Enable CORS for frontend origin (Vite dev server)
 app.use(cors({

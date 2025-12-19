@@ -299,8 +299,79 @@ export function seedData(): void {
   // Clear existing data
   clearAllData();
 
-  // Create sample cost models (empty for now, will populate via API)
-  console.log('✓ In-memory store initialized (empty)');
-  console.log('  Use POST /api/models to create new cost models');
+  // Create sample cost models with measured works
+  const model1 = createModel({
+    projectName: 'Block A Residential Development',
+    projectRef: 'PRJ-2024-001',
+    client: 'Acme Estates Ltd',
+    gifa: 2500.00,
+    totalCost: 0,
+    status: 'draft',
+    preparedBy: 'John Smith'
+  });
+
+  const model2 = createModel({
+    projectName: 'Office Refurbishment - Central London',
+    projectRef: 'PRJ-2024-002',
+    client: 'City Properties Group',
+    gifa: 1800.00,
+    totalCost: 0,
+    status: 'approved',
+    preparedBy: 'Sarah Jones'
+  });
+
+  const model3 = createModel({
+    projectName: 'School Extension Project',
+    projectRef: 'PRJ-2024-003',
+    client: 'Local Education Authority',
+    gifa: 950.00,
+    totalCost: 0,
+    status: 'archived',
+    preparedBy: 'Mike Brown'
+  });
+
+  // Add sample measured works for model1
+  const work1 = createWork({
+    costModelId: model1.id,
+    elementCode: '2.1',
+    elementName: 'Substructure',
+    description: 'Concrete strip foundations',
+    quantity: 150.00,
+    unit: 'm3',
+    unitRate: 450.00,
+    notes: 'Foundation works'
+  });
+
+  const work2 = createWork({
+    costModelId: model1.id,
+    elementCode: '3',
+    elementName: 'Frame',
+    description: 'Structural frame works',
+    quantity: 50.00,
+    unit: 'm2',
+    unitRate: 850.00,
+    notes: 'Steel frame installation'
+  });
+
+  // Add sample measured works for model2
+  const work3 = createWork({
+    costModelId: model2.id,
+    elementCode: '4',
+    elementName: 'External Walls',
+    description: 'Facade works',
+    quantity: 280.00,
+    unit: 'm2',
+    unitRate: 220.00,
+    notes: 'Curtain wall system'
+  });
+
+  // Recalculate totals
+  recalculateModelTotalCost(model1.id);
+  recalculateModelTotalCost(model2.id);
+  recalculateModelTotalCost(model3.id);
+
+  console.log('✓ In-memory store initialized with seed data');
+  console.log(`  - ${costModels.length} models created`);
+  console.log(`  - ${measuredWorks.length} measured works created`);
 }
  

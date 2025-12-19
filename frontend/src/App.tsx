@@ -40,30 +40,30 @@ function App() {
   // Fetch models from backend API
   const { models, loading, error } = useFetchModels();
 
-return (
+  return (
     <div className="app">
       <header>
         <h1>Cost Insight Dashboard</h1>
-
       </header>
 
       <main>
-        {/*
-          Conditional Rendering - Simple Routing
+        {loading && <p>Loading models...</p>}
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
-          Show either ModelList OR ModelDetail based on currentPage state.
-          Components now fetch their own data from the backend API!
-        */}
-        {currentPage === 'list' && (
-          <ModelList models={models} handleViewDetails={handleSelectModel} />
-        )}
+        {!loading && !error && (
+          <>
+            {currentPage === 'list' && (
+              <ModelList models={models} handleViewDetails={handleSelectModel} />
+            )}
 
-        {currentPage === 'detail' && selectedModelId && (
-          <ModelDetail modelId={selectedModelId} onBack={handleBackToList} />
+            {currentPage === 'detail' && selectedModelId && (
+              <ModelDetail modelId={selectedModelId} onBack={handleBackToList} />
+            )}
+          </>
         )}
       </main>
+    </div>
+  );
+}
 
-  </div>
-);
-};
 export default App;
