@@ -144,16 +144,6 @@ export function ModelDetail({ modelId, onBack }: ModelDetailProps) {
           </div>
         )}
       </div>
-
-      <div className="event-info type-info">
-        <strong>Navigation Event Handler:</strong>
-
-        The "Back to Models" button calls onBack() callback.
-
-        Parent component (App) receives this and changes the current page state.
-
-        This demonstrates how child components trigger parent state changes.
-      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 // backend/server.ts:10-110
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-// import apiRoutes from './routes/api.js';
+import apiRoutes from './routes/api';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -48,7 +48,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 });
 
 // API routes
-// app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 
 // 404 handler for undefined routes
 app.use((req: Request, res: Response) => {

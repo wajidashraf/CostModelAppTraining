@@ -2,8 +2,8 @@ import { useState } from 'react'
 import './App.css'
 // import type { ToastType } from './components/Toast';
 import { ModelList } from './pages/ModelList';
-import { models } from './Utilities/mockdata'; 
 import { ModelDetail } from './pages/ModelDetail';
+import { useFetchModels } from './hooks/useApi';
 
 type PageType = 'list' | 'detail';
 
@@ -37,6 +37,8 @@ function App() {
     setSelectedModelId(null);
   };
 
+  // Fetch models from backend API
+  const { models, loading, error } = useFetchModels();
 
 return (
     <div className="app">
@@ -61,52 +63,6 @@ return (
         )}
       </main>
 
-
-
-    <footer className="app-footer">
-      <div className="composition-info type-info">
-        <h3>Frontend-Backend Integration</h3>
-        
-        <p>
-          <strong>Current State:</strong>
-
-          • Page: {currentPage}
-
-          • Selected Model ID: <code>{selectedModelId || 'none'}</code>
-
-        </p>
-        <p>
-          <strong>How API integration works:</strong>
-
-          1. <strong>Vite proxy:</strong> Forwards /api requests to backend (localhost:3001)
-
-          2. <strong>Components fetch data:</strong> ModelList and ModelDetail use custom hooks
-
-          3. <strong>Loading states:</strong> Components show loading while fetching
-
-          4. <strong>Error handling:</strong> Graceful error messages with retry
-
-          5. <strong>Real-time updates:</strong> Refresh button re-fetches data
-        </p>
-        <p>
-          <strong>Phase 5 patterns demonstrated:</strong>
-
-          ✅ Vite proxy configuration for API
-
-          ✅ Fetch API with async/await
-
-          ✅ Custom hooks (useFetchModels, useFetchModelById)
-
-          ✅ Loading and error states
-
-          ✅ useEffect for data fetching on mount
-
-          ✅ Type-safe API client
-
-          ✅ Error handling and user feedback
-        </p>
-      </div>
-    </footer>
   </div>
 );
 };
